@@ -33,7 +33,7 @@ function Dashboard() {
     let {state} = useLocation();
 
     const handlePayment = () => {
-        axios.post('http://localhost:5000/api/users/payment', {
+        axios.post('https://stripe-scintillating-plutonium.glitch.me/api/users/payment', {
             amount_paid: adData.amount_paid,
             batch: adData.batch,
             email: details.email,
@@ -61,7 +61,7 @@ function Dashboard() {
             var decoded = jwt_decode(token);
 
 
-            axios.post('http://localhost:5000/api/users/dashboard', {
+            axios.post('https://stripe-scintillating-plutonium.glitch.me/api/users/dashboard', {
                 email: decoded.email
             })
                 .then(function (response) {

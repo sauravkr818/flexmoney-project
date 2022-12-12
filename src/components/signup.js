@@ -29,7 +29,7 @@ function Signup() {
 
     const handleSubmit = (e) => {
         
-        axios.post('http://localhost:5000/api/users/register', {
+        axios.post('https://stripe-scintillating-plutonium.glitch.me/api/users/register', {
             name: details.name,
             email: details.email,
             password: details.password,
