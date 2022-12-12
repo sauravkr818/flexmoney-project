@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import Navbar from './navbar';
@@ -107,7 +107,7 @@ function Login() {
                                                 <button type="button" onClick={handleSubmit} className="btn btn-outline-primary w-50 mt-3">Login</button>
                                             </div>
                                             <div className="d-md-flex justify-content-md-center">
-                                                <span>Don't have an account? <a href="/signup">Sign up now</a></span>
+                                                <span>Don't have an account? <Link to="/signup">Sign up now</Link></span>
                                             </div>
 
 
