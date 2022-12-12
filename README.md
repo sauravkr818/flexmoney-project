@@ -25,6 +25,10 @@ I have used the following technologies to built the website
 - Backend is built with **_Node.js_**, **_Express.js_**
 - Database - **_MongoDB_**
 
+### Hosting
+- Frontend - Netlify
+- Backend - glitch
+- Database - mongoDB cloud
 
 ### Workflow
 
@@ -32,7 +36,7 @@ I have used the following technologies to built the website
 
 #### Explanaiton of the workflow
 
-First the user visits the homepage of the website, i.e., https://yoga-classes.com where he will be asked to signup or login.
+First the user visits the homepage of the website, i.e., [https://yoga-classes.com](https://yoga-classes123.netlify.app/) where he will be asked to signup or login.
 After successful signup, he will be pushed to the login screen where he can login and go the dashboard where he can see his details about the payment due and the class he have joined. If he have not done the payment then he will be asked to pay the payment by entering the class details and the payment details.
 
 
