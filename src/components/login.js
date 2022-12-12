@@ -1,0 +1,127 @@
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
+import Navbar from './navbar';
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
+
+function Login() {
+
+    let navigate = useNavigate();
+
+    let { state } = useLocation();
+
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const navDetails = {
+        title: "Login"
+    }
+
+    useEffect(() => {
+        
+        if (state !== null) {
+            toast(state.message);
+        }
+        let token = localStorage.getItem("token");
+        
+        if (token !== undefined && token !== null) {
+            
+            token = token.substring(7, token.length);
+            
+            var decoded = jwt_decode(token);
+            
+            var exp = decoded.exp * 1000;
+
+            var lastDate = new Date(exp);
+
+            let today = Date.now();
+            if (today < lastDate) {
+                navigate("/dashboard", { state: { message: "Successfully logged in" } });
+            }
+        }
+
+
+    }, []);
+
+    const handleSubmit = () => {
+        
+        axios.post('http://localhost:5000/api/users/login', {
+
+            email: loginData.email,
+            password: loginData.password,
+
+        })
+            .then(function (response) {
+                
+                localStorage.setItem('token', response.data.token);
+                navigate("/dashboard", { state: { message: "Successfully logged in" } })
+            })
+            .catch(function (error) {
+                toast(error.response.data.err)
+                console.log(error);
+            });
+    }
+
+
+    return (
+        <>
+            <Navbar data={navDetails} />
+            <ToastContainer />
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6 col-10 mx-auto">
+                        <div className="card mt-5">
+                            <div className="card-body">
+                                <h2 class="card-title text-center">Login</h2>
+                                <div><hr className="border border-dark border-2 w-75 mx-auto "></hr></div>
+                                <div className="row">
+                                    <div className="col-12 mt-3">
+                                        <form className="row g-3">
+
+                                            <div className="col-md-10 mx-auto">
+                                                <label for="inputEmail4" className="form-label">Email</label>
+                                                <input type="email" className="form-control"
+                                                    name="email"
+                                                    value={loginData.email}
+                                                    onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                                                    id="inputEmail4" />
+                                            </div>
+
+                                            <div className="col-md-10 mx-auto">
+                                                <label for="inputPassword4" className="form-label">Password</label>
+                                                <input type="password" className="form-control"
+                                                    name="password"
+                                                    value={loginData.password}
+                                                    onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                                                    id="inputPassword4" />
+                                            </div>
+
+                                            <div className="d-md-flex justify-content-md-center">
+                                                <button type="button" onClick={handleSubmit} className="btn btn-outline-primary w-50 mt-3">Login</button>
+                                            </div>
+                                            <div className="d-md-flex justify-content-md-center">
+                                                <span>Don't have an account? <a href="/signup">Sign up now</a></span>
+                                            </div>
+
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+export default Login
